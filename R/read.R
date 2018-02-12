@@ -44,15 +44,23 @@
 #'   package. Credit should be directed towards Lord Urbanek.
 #'
 #' @seealso \code{\link{write_tif}}
-#' @examples
 #'
+#' @examples
 #' img <- read_tif(system.file("img", "Rlogo.tif", package = "ijtiff"))
 #' img <- read_tif(system.file("img", "2ch_ij.tif", package = "ijtiff"))
 #' str(img)  # we see that `ijtiff` correctly recognises this image's 2 channels
 #'
 #' @export
 read_tif <- function(path, list_safety = "error", msg = TRUE) {
+  checkmate::assert_string(path)
+  path %<>% stringr::str_replace_all(stringr::coll("\\"), "/")  # windows safe
   checkmate::assert_file_exists(path)
+  if (stringr::str_detect(path, "/")) {  # I've noticed that read_tif()
+    init_wd <- getwd()                   # sometimes fails when writing to
+    on.exit(setwd(init_wd))              # far away directories.
+    setwd(filesstrings::str_before_last(path, "/"))
+    path %<>% filesstrings::str_after_last("/")
+  }
   checkmate::assert_logical(msg, max.len = 1)
   checkmate::assert_string(list_safety)
   list_safety %<>% RSAGA::match.arg.ext(c("error", "warning", "none"),
@@ -61,21 +69,89 @@ read_tif <- function(path, list_safety = "error", msg = TRUE) {
   checkmate::assert_list(out)
   ds <- dims(out)
   if (filesstrings::all_equal(ds)) {
+    d <- ds[[1]]
     attrs1 <- attributes(out[[1]])
     n_ch <- 1
     if ("samples_per_pixel" %in% names(attrs1)) n_ch <- attrs1$samples_per_pixel
     if ("description" %in% names(attrs1)) {
       description <- attrs1$description
       if (startsWith(description, "ImageJ")) {
+        ij_n_ch <- FALSE
         if (stringr::str_detect(description, "channels=")) {
           n_ch <- description %>%
             filesstrings::str_after_first("channels=") %>%
             filesstrings::first_number()
+          ij_n_ch <- TRUE
+        }
+        n_imgs <- NA
+        if (stringr::str_detect(description, "images=")) {
+          n_imgs <- description %>%
+            filesstrings::str_after_first("images=") %>%
+            filesstrings::first_number()
+        }
+        n_slices <- NA
+        if (stringr::str_detect(description, "slices=")) {
+          n_slices <- description %>%
+            filesstrings::str_after_first("slices=") %>%
+            filesstrings::first_number()
+        }
+        if (stringr::str_detect(description, "frames=")) {
+          n_frames <- description %>%
+            filesstrings::str_after_first("frames=") %>%
+            filesstrings::first_number()
+          if (!is.na(n_slices)) {
+            stop("The ImageJ-written image you're trying to read says it has ",
+                 n_frames, " frames AND ", n_slices, " slices. To be read by ",
+                 "the 'ijtiff' package, the number of slices OR the number ",
+                 "of frames should be specified in the description tiff tag ",
+                 "(and they're interpreted as the same thing), but not both. ")
+          }
+          n_slices <- n_frames
+        }
+        if (!is.na(n_slices) && !is.na(n_imgs)) {
+          if (ij_n_ch) {
+            if (n_imgs != n_ch * n_slices) {
+              stop("The ImageJ-written image you're trying to read says in its",
+                   " TIFFTAG_DESSCRIPTION that it has ", n_imgs, " images of ",
+                   n_slices, " slices of ", n_ch,
+                   " channels. However, with ", n_slices, " slices of ", n_ch,
+                   " channels, one would expect there to be ", n_slices, "x",
+                   n_ch, "=", n_ch * n_slices, " images. ",
+                   "This discrepancy means that the ",
+                   "'ijtiff' package can't read your image correctly. One ",
+                   "possible source of this kind of error is that your image ",
+                   "is temporal and volumetric. 'ijtiff' can handle either ",
+                   "time-based or volumetric stacks, but not both.")
+            }
+          }
+        }
+        if ((isTRUE(length(out) == n_imgs) && ij_n_ch) ||
+             ((!ij_n_ch) && n_ch == 1)) {
+          if (length(d) > 2) out %<>% purrr::map(extract_desired_plane)
         }
       }
     }
     out %<>% unlist()
-    dim(out) <- c(ds[[1]][1:2], n_ch, length(out) / prod(c(ds[[1]][1:2], n_ch)))
+    if (attrs1$sample_format == "uint") {
+      bps <- attrs1$bits_per_sample
+      checkmate::assert_int(bps, lower = 8, upper = 32)
+      max_allowed <- 2 ^ bps - 1
+      if (any(out > max_allowed)) {
+        biggest_offender <- max(out)
+        while (all(out %% (2 ^ bps) == 0))
+          out <- out / 2 ^ bps
+        if (any(out > max_allowed)) {
+          stop("ijtiff encountered a fatal error trying to read your image.\n",
+               "* Your image is ", bps, "-bit, meaning that the maximum ",
+               "possible value in it is ", 2 ^ bps - 1, ", however ijtiff has ",
+               "managed to read values up to ", biggest_offender,
+               "which is clearly wrong. \n", "Please file a bug at ",
+               "https://github.com/rorynolan/ijtiff/issues ",
+               "and attach the offending image. Sorry and thanks.")
+        }
+      }
+    }
+    dim(out) <- c(d[1:2], n_ch, length(out) / prod(c(d[1:2], n_ch)))
     if ("dim" %in% names(attrs1)) attrs1$dim <- NULL
     do_call_list <- c(list(img = out), attrs1)
     out <- do.call(ijtiff_img, do_call_list)
@@ -84,16 +160,18 @@ read_tif <- function(path, list_safety = "error", msg = TRUE) {
     if (list_safety == "error") stop("`read_tif()` tried to return a list.")
     if (list_safety == "warning") warning("`read_tif()` is returning a list.")
     if (list_safety == "none") {
-      if (msg) message("Reading a list of images with differing dimensions.")
+      if (msg)
+        message("Reading a list of images with differing dimensions . . .")
     }
   } else if (msg) {
     ints <- attr(out, "sample_format") == "uint"
     dim(out) %>% {
-      message("Reading a ", .[1], "x", .[2], " pixel image of ",
+      message("Reading ", path, ": a ", .[1], "x", .[2], " pixel image of ",
               ifelse(ints, "unsigned integer", "floating point"), " type with ",
               .[3], " channel", ifelse(.[3] > 1, "s", ""), " and ", .[4],
-              " frame", ifelse(.[4] > 1, "s", ""), ".")
+              " frame", ifelse(.[4] > 1, "s", ""), " . . .")
     }
   }
+  if (msg) message("\b Done.")
   out
 }

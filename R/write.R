@@ -32,6 +32,7 @@
 write_tif <- function(img, path, bits_per_sample = "auto",
                       compression = "none", msg = TRUE) {
   checkmate::assert_string(path)
+  path %<>% stringr::str_replace_all(stringr::coll("\\"), "/")  # windows safe
   if (stringr::str_detect(path, "/")) {  # I've noticed that write_tif()
     init_wd <- getwd()                   # sometimes fails when writing to
     on.exit(setwd(init_wd))              # far away directories.
@@ -63,8 +64,6 @@ write_tif <- function(img, path, bits_per_sample = "auto",
   checkmate::assert_numeric(img)
   img %<>% ijtiff_img()
   d <- dim(img)
-  if (d[3] > 1e9) stop("Cannot write more than a billion channels.")
-  if (d[4] > 1e9) stop("Cannot write more than a billion frames.")
   compressions <- c(none = 1L, rle = 2L, packbits = 32773L, jpeg = 7L,
                     deflate = 8L)
   compression %<>% RSAGA::match.arg.ext(names(compressions),
@@ -121,7 +120,7 @@ write_tif <- function(img, path, bits_per_sample = "auto",
     }
   }
   if (msg) {
-    message("Writing a ", d[1], "x", d[2], " pixel image of ",
+    message("Writing ", path, ": a ", d[1], "x", d[2], " pixel image of ",
             ifelse(floats, "floating point", "unsigned integer"),
             " type with ", d[3],
             " ", "channel", ifelse(d[3] > 1, "s", ""), " and ",
