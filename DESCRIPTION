@@ -1,7 +1,7 @@
 Package: ijtiff
 Type: Package
 Title: TIFF I/O for 'ImageJ' Users
-Version: 0.3.0
+Version: 1.0.0
 Authors@R: c(person("Rory", "Nolan", email = "rorynoolan@gmail.com", 
                     role = c("aut", "cre")),
              person("Simon", "Urbanek", email = "Simon.Urbanek@r-project.org", 
@@ -18,18 +18,18 @@ SystemRequirements: libtiff
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-URL: https://www.github.com/rorynolan/ijtiff
-BugReports: https://www.github.com/rorynolan/ijtiff/issues
+URL: https://www.github.com/ropensci/ijtiff
+BugReports: https://www.github.com/ropensci/ijtiff/issues
 VignetteBuilder: knitr
 Depends: R (>= 2.10)
-Imports: checkmate, RSAGA, magrittr, filesstrings (>= 2.0.4), stringr,
-        purrr, Rcpp, fields, grDevices, readr
+Imports: checkmate, magrittr, filesstrings (>= 2.1.0), stringr, purrr,
+        Rcpp, fields, grDevices, readr
 Suggests: knitr, testthat, rmarkdown, covr, magick, abind, tiff
 LinkingTo: Rcpp
 NeedsCompilation: yes
-Packaged: 2018-02-12 17:20:58 UTC; rnolan
+Packaged: 2018-03-16 10:22:35 UTC; rnolan
 Author: Rory Nolan [aut, cre],
   Simon Urbanek [ctb],
   Sergi Padilla-Parra [ths]
 Repository: CRAN
-Date/Publication: 2018-02-12 23:18:13 UTC
+Date/Publication: 2018-03-16 13:00:19 UTC
