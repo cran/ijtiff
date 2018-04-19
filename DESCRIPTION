@@ -1,13 +1,18 @@
 Package: ijtiff
 Type: Package
 Title: TIFF I/O for 'ImageJ' Users
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: c(person("Rory", "Nolan", email = "rorynoolan@gmail.com", 
-                    role = c("aut", "cre")),
+                    role = c("aut", "cre"), 
+                    comment = c(ORCID = "0000-0002-5239-4043")),
              person("Simon", "Urbanek", email = "Simon.Urbanek@r-project.org", 
                     role = "ctb"),
              person("Sergi", "Padilla-Parra", email = "spadilla@well.ox.ac.uk", 
-                    role = "ths"))
+                    role = "ths", comment = c(ORCID = "0000-0002-8010-9481")),
+             person("Jeroen", "Ooms", role = "rev", 
+                    comment = c(ORCID = "0000-0002-4035-0289")),
+             person("Jon", "Clayden", 
+                    role = "rev", comment = c(ORCID = "0000-0002-6608-0619")))
 Maintainer: Rory Nolan <rorynoolan@gmail.com>
 Description: Correctly import TIFF files that were saved from 'ImageJ' and write 
     TIFF files than can be correctly read by 'ImageJ' 
@@ -23,13 +28,15 @@ BugReports: https://www.github.com/ropensci/ijtiff/issues
 VignetteBuilder: knitr
 Depends: R (>= 2.10)
 Imports: checkmate, magrittr, filesstrings (>= 2.1.0), stringr, purrr,
-        Rcpp, fields, grDevices, readr
+        Rcpp, fields, grDevices, readr, rlang
 Suggests: knitr, testthat, rmarkdown, covr, magick, abind, tiff
 LinkingTo: Rcpp
 NeedsCompilation: yes
-Packaged: 2018-03-16 10:22:35 UTC; rnolan
-Author: Rory Nolan [aut, cre],
+Packaged: 2018-04-19 13:56:48 UTC; rnolan
+Author: Rory Nolan [aut, cre] (<https://orcid.org/0000-0002-5239-4043>),
   Simon Urbanek [ctb],
-  Sergi Padilla-Parra [ths]
+  Sergi Padilla-Parra [ths] (<https://orcid.org/0000-0002-8010-9481>),
+  Jeroen Ooms [rev] (<https://orcid.org/0000-0002-4035-0289>),
+  Jon Clayden [rev] (<https://orcid.org/0000-0002-6608-0619>)
 Repository: CRAN
-Date/Publication: 2018-03-16 13:00:19 UTC
+Date/Publication: 2018-04-20 00:05:08 UTC

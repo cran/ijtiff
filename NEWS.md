@@ -1,4 +1,15 @@
-### 1.0.0
+### 1.1.0 
+
+#### NEW FEATURES
+* `count_imgs()` counts the number of images in a TIFF file without reading the images themselves.
+* `read_tags()` reads the tags from TIFF images without reading the images themselves.
+
+#### MINOR IMPROVEMENTS
+* Now includes citation information.
+* C code is more readable.
+* `display()` is more flexible, accepting 3 and 4-dimensional arrays, just displaying the first frame from the first channel.
+
+## 1.0.0
 
 #### PEER REVIEW
 * The package is now peer reviewed by ROpenSci.
