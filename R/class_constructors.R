@@ -12,9 +12,7 @@
 #' @param ... Named arguments which are set as attributes.
 #'
 #' @return A 4 dimensional array representing an image, indexed by `img[y, x,
-#'   channel, frame]` (this is consistent with the `EBImage` package
-#'   (\url{https://bioconductor.org/packages/EBImage/})) with selected
-#'   attributes.
+#'   channel, frame]`, with selected attributes.
 #'
 #' @export
 #'
@@ -29,14 +27,27 @@
 #' ijtiff_img(img, software = "R")
 ijtiff_img <- function(img, ...) {
   checkmate::assert_array(img, min.d = 2, max.d = 4)
+  if (is.logical(img)) {
+    atts <- attributes(img)
+    img %<>% as.numeric()
+    attributes(img) <- atts
+  }
   checkmate::assert_numeric(img)
   if (length(dim(img)) == 2) dim(img) %<>% c(1, 1)
-  if (length(dim(img)) == 3) dim(img) %<>% {c(.[1:2], 1, .[3])}
+  if (length(dim(img)) == 3) {
+    dim(img) %<>% {
+      c(.[1:2], 1, .[3])
+    }
+  }
   dots <- list(...)
   if (length(dots)) {
     namez <- names(dots)
-    if (is.null(namez) || any(namez == ""))
-      stop("All arguments in ... must be named.")
+    if (is.null(namez) || any(namez == "")) {
+      custom_stop(
+        "All arguments in ... must be named.",
+        "Your argument {dots[[1]]} is not named."
+      )
+    }
     do_call_args <- c(list(img), dots)
     img <- do.call(structure, do_call_args)
   }
