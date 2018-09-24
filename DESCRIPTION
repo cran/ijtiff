@@ -1,7 +1,7 @@
 Package: ijtiff
 Type: Package
 Title: Comprehensive TIFF I/O with Full Support for 'ImageJ' TIFF Files
-Version: 1.4.0
+Version: 1.4.1
 Authors@R: c(person("Rory", "Nolan", email = "rorynoolan@gmail.com", 
                     role = c("aut", "cre"), 
                     comment = c(ORCID = "0000-0002-5239-4043")),
@@ -27,18 +27,19 @@ SystemRequirements: libtiff
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.0
-URL: https://www.github.com/ropensci/ijtiff
+URL: https://ropensci.github.io/ijtiff
 BugReports: https://www.github.com/ropensci/ijtiff/issues
 VignetteBuilder: knitr
 Depends: R (>= 2.10)
 Imports: checkmate, magrittr, filesstrings (>= 2.7.0), stringr, purrr,
         Rcpp, fields, grDevices, readr, rlang, dplyr, methods, glue,
-        BBmisc, tibble
+        BBmisc
 Suggests: knitr, testthat, rmarkdown, covr, magick, abind, tiff,
-        EBImage, rprojroot
+        EBImage, spelling
 LinkingTo: Rcpp
+Language: en-US
 NeedsCompilation: yes
-Packaged: 2018-09-10 08:25:20 UTC; rnolan
+Packaged: 2018-09-24 10:14:40 UTC; rnolan
 Author: Rory Nolan [aut, cre] (<https://orcid.org/0000-0002-5239-4043>),
   Kent Johnson [aut],
   Simon Urbanek [ctb],
@@ -46,4 +47,4 @@ Author: Rory Nolan [aut, cre] (<https://orcid.org/0000-0002-5239-4043>),
   Jeroen Ooms [rev, ctb] (<https://orcid.org/0000-0002-4035-0289>),
   Jon Clayden [rev] (<https://orcid.org/0000-0002-6608-0619>)
 Repository: CRAN
-Date/Publication: 2018-09-10 20:40:03 UTC
+Date/Publication: 2018-09-24 10:40:02 UTC
