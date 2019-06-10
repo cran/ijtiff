@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <sys/types.h>
+
 #include <Rinternals.h>
 
 static int need_init = 1;
@@ -10,14 +12,13 @@ static char txtbuf[2048];  // text buffer
 
 static TIFF *last_tiff; /* this to avoid leaks */
 
-static void TIFFWarningHandler_(const char* module, const char* fmt, va_list ap) {
+static void TIFFWarningHandler_(const char* module, const char* fmt,
+                                va_list ap) {
   /* we can't pass it directly since R has no vprintf entry point */
   // FIXME: could possible put an if statement here to suppress tag warnings
   vsnprintf(txtbuf, sizeof(txtbuf), fmt, ap);
   if (strstr(txtbuf,
-             "Unknown field with tag 50838 (0xc696) encountered") == NULL &&
-        strstr(txtbuf,
-               "Unknown field with tag 50839 (0xc697) encountered") == NULL &&
+             "Unknown field with tag") == NULL &&
         strstr(txtbuf,
                "Defining non-color channels as ExtraSamples.") == NULL) {
   Rf_warning("%s: %s", module, txtbuf);

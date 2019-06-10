@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2019-05-16" />
+<meta name="date" content="2019-06-10" />
 
 <title>The ImageJ Problem</title>
 
@@ -301,7 +301,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">The <em>ImageJ</em> Problem</h1>
-<h4 class="date">2019-05-16</h4>
+<h4 class="date">2019-06-10</h4>
 
 
 
@@ -384,8 +384,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>When we import the same image with the <code>ijtiff</code> package:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">img &lt;-<span class="st"> </span>ijtiff<span class="op">::</span><span class="kw">read_tif</span>(path_2ch_ij)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; Reading Rlogo-banana-red_green.tif: an 8-bit, 155x200 pixel</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; image of unsigned integer type with 2 channels and 3 frames .</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; . .</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; image of unsigned integer type. Reading 2 channels and 3</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; frames . . .</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;  Done.</span></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw">dim</span>(img)  <span class="co"># 2 channels, 3 frames</span></a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; [1] 155 200   2   3</span></a>
