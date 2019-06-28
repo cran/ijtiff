@@ -9,9 +9,6 @@ library(magrittr)
 path_2ch_ij <- system.file("img", "Rlogo-banana-red_green.tif", 
                            package = "ijtiff")
 
-## ----magickally display gif, echo=FALSE----------------------------------
-magick::image_read(system.file("img", "Rlogo-banana.gif", package = "ijtiff"))
-
 ## ----red and green banana, echo=FALSE, message=FALSE, dpi=300, fig.height=1, warning=FALSE, fig.width=2----
 rgbanana_tif <- system.file("img", "Rlogo-banana-red_green.tif",
                             package = "ijtiff") %>% 

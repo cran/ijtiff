@@ -1,6 +1,6 @@
-9be59b1c718acef128b00ee2cacb877c *DESCRIPTION
+835eb134f2c3ded282bc9082515e1086 *DESCRIPTION
 c0e4e15489a27d461808a122f243a68b *NAMESPACE
-e1a7bede7990ce494d2b2ba711be377e *NEWS.md
+cf9c603b711914f043dbf31337aa2c0c *NEWS.md
 781f9f2c23958694065f80121907912e *R/RcppExports.R
 73e5b423961aaf853b2e9f9e4d4f31ca *R/class_constructors.R
 88f5f5d0911fa807f138769819304af1 *R/graphics.R
@@ -17,13 +17,13 @@ cbdb390b752aef6224446f41161793df *inst/CITATION
 ea8628c2c101701cfe8aa82a3931793c *inst/WORDLIST
 bbc57926636fe35c6e1c3878acd8d9f8 *inst/doc/reading-and-writing-images.R
 f709896e571e8c1ce3dc8ea394e4c03a *inst/doc/reading-and-writing-images.Rmd
-4f2fcb622bf91af134e56ff2eaf4894a *inst/doc/reading-and-writing-images.html
+a63f61b068ac6c636b63abb31856ea70 *inst/doc/reading-and-writing-images.html
 bbc07ec72cddb8d28f1c2a7ab322f031 *inst/doc/text-images.R
 bd49f1666c31b2d119c538f4b3e35e97 *inst/doc/text-images.Rmd
-bd55d12e29da0b6fce2ba5249a55bc89 *inst/doc/text-images.html
-3f7f6eb0d1527cf578a1fe3559bd9514 *inst/doc/the-imagej-problem.R
-f65cc83946fc65d0de406b740a0baa49 *inst/doc/the-imagej-problem.Rmd
-e6f4151e73b2b1670eee8718f500e8f8 *inst/doc/the-imagej-problem.html
+c63eb688c3b875c32b93a539d36fe706 *inst/doc/text-images.html
+1397e9c53b99cc551a4c2dadb56e3ce5 *inst/doc/the-imagej-problem.R
+30f077b4f05fe9a1b1f2792e893eebc8 *inst/doc/the-imagej-problem.Rmd
+80cb4539376e43244a78a7d28b4b13e6 *inst/doc/the-imagej-problem.html
 9d79753300a5b9e1c68ba3bf2c431e2d *inst/extdata/TIFF_tags.csv
 a1cffa1c42763b5bd2329309a3b207db *inst/img/2ch_ij.tif
 6d1aa31a952f275f19cb6c723e748df0 *inst/img/Rlogo-banana-1-2.tif
@@ -71,4 +71,4 @@ be084c1b3a1e4e6d99259f3b185f6739 *tests/testthat/test-linescan_to_stack-examples
 30718386c93f34279a02072d58567fae *tools/winlibs.R
 f709896e571e8c1ce3dc8ea394e4c03a *vignettes/reading-and-writing-images.Rmd
 bd49f1666c31b2d119c538f4b3e35e97 *vignettes/text-images.Rmd
-f65cc83946fc65d0de406b740a0baa49 *vignettes/the-imagej-problem.Rmd
+30f077b4f05fe9a1b1f2792e893eebc8 *vignettes/the-imagej-problem.Rmd
