@@ -34,7 +34,7 @@ channels. Typically, these multiple images represent the sequential frames in
 a time-stack or z-stack of images and hence each of these images has the same
 dimension. If this is the case, they are all read into a single 4-dimensional
 array \code{img} where \code{img} is indexed as \code{img[y, x, channel, frame]} (where we
-have \code{y, x} to comply with the conventional \code{row, col} indexing of a matrix -
+have \verb{y, x} to comply with the conventional \verb{row, col} indexing of a matrix -
 it means that images displayed as arrays of numbers in the R console will
 have the correct orientation). However, it is possible that the images in the
 TIFF file have varying dimensions (most people have never seen this), in
@@ -58,12 +58,14 @@ standard for packing order for TIFFs beyond 8-bit so we assume big-endian
 packing}.
 }
 \examples{
+\dontrun{
 img <- read_tif(system.file("img", "Rlogo.tif", package = "ijtiff"))
 img <- read_tif(system.file("img", "2ch_ij.tif", package = "ijtiff"))
 str(img) # we see that `ijtiff` correctly recognises this image's 2 channels
 img <- read_tif(system.file("img", "2ch_ij.tif", package = "ijtiff"),
   frames = c(1, 3)
 )
+}
 }
 \seealso{
 \code{\link[=write_tif]{write_tif()}}

@@ -13,7 +13,7 @@ as_EBImage(img, colormode = NULL, scale = TRUE, force = TRUE)
 which can be either \code{"Grayscale"} or \code{"Color"}. If not specified, a guess
 is made. See 'Details'.}
 
-\item{scale}{Scale values in an integer image to the range \code{[0, 1]}? Has no
+\item{scale}{Scale values in an integer image to the range \verb{[0, 1]}? Has no
 effect on floating-point images.}
 
 \item{force}{This function is designed to take \link{ijtiff_img}s as input. To
@@ -33,12 +33,12 @@ Else if \code{img} has 3 or 4 channels, then \code{colormode} is set to \code{"C
 Else \code{colormode} is set to "Grayscale".
 }
 \examples{
-if (require(EBImage)) {
-  img <- read_tif(system.file("img", "Rlogo.tif", package = "ijtiff"))
-  str(img)
-  str(as_EBImage(img))
-  img <- read_tif(system.file("img", "2ch_ij.tif", package = "ijtiff"))
-  str(img)
-  str(as_EBImage(img))
+\dontrun{
+img <- read_tif(system.file("img", "Rlogo.tif", package = "ijtiff"))
+str(img)
+str(as_EBImage(img))
+img <- read_tif(system.file("img", "2ch_ij.tif", package = "ijtiff"))
+str(img)
+str(as_EBImage(img))
 }
 }

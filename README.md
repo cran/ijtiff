@@ -39,7 +39,7 @@ bugs therein.
     `ijtiff` works smoothly with these images.
 
 To learn about `ijtiff` and how to use it, visit the package website at
-<https://ropensci.github.io/ijtiff>.
+<https://docs.ropensci.org/ijtiff>.
 
 ## Installation
 
@@ -56,9 +56,9 @@ install `libtiff`:
     `sudo yum install libtiff4-dev`.
   - On **Mac**, you need [Homebrew](https://brew.sh/). Then in the
     terminal, run `brew install libtiff`.
-  - On 64-bit **Windows**, no setup is required 😄. If you have 32-bit
-    windows, you need to install `libtiff` from
-    <http://gnuwin32.sourceforge.net/packages/tiff.htm>.
+  - On 64-bit **Windows**, no setup is required 😄. **If you have 32-bit
+    windows, the `ijtiff` package doesn’t work.** I worked really hard
+    to figure out why this is, but I couldn’t 😦.
 
 ### Installing the release version of the `ijtiff` R package
 

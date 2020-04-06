@@ -60,10 +60,13 @@ extract_desired_plane <- function(arr) {
 #'   file, making no allowance for the way ImageJ may write TIFF files.
 #'
 #' @examples
+#' \dontrun{
 #' count_frames(system.file("img", "Rlogo.tif", package = "ijtiff"))
 #' count_frames(system.file("img", "2ch_ij.tif", package = "ijtiff"))
+#' }
 #' @export
 count_frames <- function(path) {
+  err_on_win32bit("count_frames")
   path %<>% prep_path()
   withr::local_dir(attr(path, "path_dir"))
   prep <- prep_read(path,
@@ -73,6 +76,13 @@ count_frames <- function(path) {
   out <- ifelse(is.na(prep$n_slices), prep$n_dirs, prep$n_slices)
   attr(out, "n_dirs") <- prep$n_dirs
   out
+}
+
+#' @rdname count_frames
+#' @export
+frames_count <- function(path) {
+  err_on_win32bit("frames_count")
+  count_frames(path = path)
 }
 
 is_installed <- function(package) {
@@ -108,13 +118,13 @@ can_be_intish <- function(x) {
 #' @return An [EBImage::Image].
 #'
 #' @examples
-#' if (require(EBImage)) {
-#'   img <- read_tif(system.file("img", "Rlogo.tif", package = "ijtiff"))
-#'   str(img)
-#'   str(as_EBImage(img))
-#'   img <- read_tif(system.file("img", "2ch_ij.tif", package = "ijtiff"))
-#'   str(img)
-#'   str(as_EBImage(img))
+#' \dontrun{
+#' img <- read_tif(system.file("img", "Rlogo.tif", package = "ijtiff"))
+#' str(img)
+#' str(as_EBImage(img))
+#' img <- read_tif(system.file("img", "2ch_ij.tif", package = "ijtiff"))
+#' str(img)
+#' str(as_EBImage(img))
 #' }
 #' @export
 as_EBImage <- function(img, colormode = NULL, scale = TRUE, force = TRUE) {
@@ -278,9 +288,9 @@ stack_to_linescan <- function(img) {
 pretty_msg <- function(...) {
   dots <- unlist(list(...))
   checkmate::assert_character(dots)
-  glue::glue_collapse(dots) %>%
+  stringr::str_c(dots, collapse = "") %>%
     strwrap(width = 63) %>%
-    glue::glue_collapse(sep = "\n") %>%
+    stringr::str_c(collapse = "\n") %>%
     message()
 }
 
@@ -513,7 +523,7 @@ custom_stop_bullet <- function(string) {
   string %>%
     stringr::str_replace_all("\\s+", " ") %>%
     {
-      glue::glue("    * {.}")
+      stringr::str_glue("    * {.}")
     }
 }
 
@@ -532,7 +542,7 @@ custom_stop <- function(main_message, ..., .envir = parent.frame()) {
   checkmate::assert_string(main_message)
   main_message %<>%
     stringr::str_replace_all("\\s+", " ") %>%
-    glue::glue(.envir = .envir)
+    stringr::str_glue(.envir = .envir)
   out <- main_message
   dots <- unlist(list(...))
   if (length(dots)) {
@@ -540,11 +550,39 @@ custom_stop <- function(main_message, ..., .envir = parent.frame()) {
       stop("\nThe arguments in ... must all be of character type.")
     }
     dots %<>%
-      purrr::map_chr(glue::glue, .envir = .envir) %>%
+      purrr::map_chr(stringr::str_glue, .envir = .envir) %>%
       purrr::map_chr(custom_stop_bullet)
     out %<>% {
-      glue::glue_collapse(c(., dots), sep = "\n")
+      stringr::str_c(c(., dots), collapse = "\n")
     }
   }
-  rlang::abort(glue::glue_collapse(out, sep = "\n"))
+  rlang::abort(stringr::str_c(out, collapse = "\n"))
+}
+
+win32bit <- function() {
+  sys_info <- tolower(Sys.info())
+  windows <- stringr::str_detect(
+    sys_info[["sysname"]],
+    stringr::coll("windows")
+  )
+  bit64 <- stringr::str_detect(sys_info[["machine"]], stringr::coll("64"))
+  windows && (!bit64)
+}
+
+err_on_win32bit <- function(fun_name) {
+  checkmate::assert_string(fun_name)
+  if (win32bit()) {
+    custom_stop(
+      "
+      The function `ijtiff::{fun_name}()` is not available on 32-bit windows
+      machines.
+      ",
+      "64-bit windows and any Linux or Mac will work.",
+      "
+      I am sorry about this, I spent many hours trying to get it to work
+      on 32-bit Windows machines but I failed.
+      "
+    )
+  }
+  invisible(NULL)
 }
