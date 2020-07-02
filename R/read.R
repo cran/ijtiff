@@ -79,9 +79,9 @@ read_tif <- function(path, frames = "all", list_safety = "error", msg = TRUE) {
   if (filesstrings::all_equal(ds)) {
     d <- ds[[1]]
     attrs1 <- attributes(out[[1]])
-    if ((isTRUE(length(out) == prep$n_imgs) && prep$ij_n_ch) ||
-      (!prep$ij_n_ch && prep$n_ch == 1)) {
-      if (length(d) > 2) out %<>% purrr::map(extract_desired_plane)
+    if (((isTRUE(length(out) == prep$n_imgs) && prep$ij_n_ch) ||
+      (!prep$ij_n_ch && prep$n_ch == 1)) && (length(d) > 2)) {
+      out %<>% purrr::map(compute_desired_plane)
     }
     out %<>% unlist()
     if (attrs1$sample_format == "uint") {
@@ -137,6 +137,15 @@ read_tif <- function(path, frames = "all", list_safety = "error", msg = TRUE) {
         " frame", ifelse(.[4] > 1, "s", ""), " . . ."
       )
     }
+  }
+  if ("description" %in% names(attributes(out)) &&
+      startsWith(attr(out, "description"), "ImageJ") &&
+      (is.null(attr(out, "resolution_unit")) ||
+       attr(out, "resolution_unit") == "none") &&
+      stringr::str_detect(attr(out, "description"), "\\sunit=.+\\s")) {
+    attr(out, "resolution_unit") <- stringr::str_match(
+      attr(out, "description"), "\\sunit=([^\\s]+)"
+    )[1, 2]
   }
   if (msg) pretty_msg("\b Done.")
   out

@@ -13,3 +13,7 @@ enlist_img_cpp <- function(arr4d) {
     .Call('_ijtiff_enlist_img_cpp', PACKAGE = 'ijtiff', arr4d)
 }
 
+match_pillar_to_row_3 <- function(arr3d, mat) {
+    .Call('_ijtiff_match_pillar_to_row_3', PACKAGE = 'ijtiff', arr3d, mat)
+}
+
