@@ -1,12 +1,12 @@
 #' @useDynLib ijtiff
-#' @importFrom Rcpp sourceCpp
 #' @importFrom magrittr '%>%' '%<>%' '%T>%'
 #' @importFrom rlang '%||%'
+#' @importFrom zeallot '%<-%'
 NULL
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 if (getRversion() >= "2.15.1") {
-  utils::globalVariables(c("."))
+  utils::globalVariables(c(".", "n_slices", "n_ch", "ij_n_ch", "n_imgs"))
 }
 
 .onUnload <- function(libpath) {

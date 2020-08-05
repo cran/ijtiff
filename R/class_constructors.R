@@ -51,7 +51,11 @@ ijtiff_img <- function(img, ...) {
     do_call_args <- c(list(img), dots)
     img <- do.call(structure, do_call_args)
   }
-  class(img) %<>% c("ijtiff_img", .)
+  cls <- class(img)
+  if (is_EBImage(img)) img <- aperm(img, c(2, 1, 3, 4))
+  suppressWarnings(
+    class(img) <- unique(c("ijtiff_img", dplyr::setdiff(cls, "Image")))
+  )
   img
 }
 
@@ -81,14 +85,9 @@ as_ijtiff_img <- ijtiff_img
 #' @return An [EBImage::Image].
 #'
 #' @examples
-#' \dontrun{
 #' img <- read_tif(system.file("img", "Rlogo.tif", package = "ijtiff"))
 #' str(img)
 #' str(as_EBImage(img))
-#' img <- read_tif(system.file("img", "2ch_ij.tif", package = "ijtiff"))
-#' str(img)
-#' str(as_EBImage(img))
-#' }
 #' @export
 as_EBImage <- function(img, colormode = NULL, scale = TRUE, force = TRUE) {
   ebimg_check()
@@ -136,8 +135,9 @@ as_EBImage <- function(img, colormode = NULL, scale = TRUE, force = TRUE) {
   colormode <- dplyr::if_else(colormode == "Colour", "Color", colormode)
   colormode <- dplyr::if_else(colormode == "Greyscale", "Grayscale", colormode)
   if (scale && can_be_intish(img)) {
-    lub <- max(lowest_upper_bound(img, c(2 ^ c(8, 16, 32) - 1)), max(img),
-               na.rm = TRUE)
+    lub <- max(lowest_upper_bound(img, c(2^c(8, 16, 32) - 1)), max(img),
+      na.rm = TRUE
+    )
     if (!is.na(lub)) img <- img / lub
   }
   img %<>% aperm(c(2, 1, 3, 4))

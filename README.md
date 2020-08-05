@@ -18,10 +18,10 @@ downloads](http://cranlogs.r-pkg.org/badges/ijtiff)
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
-[![](https://badges.ropensci.org/164_status.svg)](https://github.com/ropensci/onboarding/issues/164)
+[![](https://badges.ropensci.org/164_status.svg)](https://github.com/ropensci/software-review/issues/164)
 [![DOI](http://joss.theoj.org/papers/10.21105/joss.00633/status.svg)](https://doi.org/10.21105/joss.00633)
 
 ## Introduction
@@ -39,7 +39,7 @@ bugs therein.
     `ijtiff` works smoothly with these images.
 
 To learn about `ijtiff` and how to use it, visit the package website at
-<https://docs.ropensci.org/ijtiff>.
+<https://docs.ropensci.org/ijtiff/>.
 
 ## Installation
 
@@ -56,9 +56,7 @@ install `libtiff`:
     `sudo yum install libtiff4-dev`.
   - On **Mac**, you need [Homebrew](https://brew.sh/). Then in the
     terminal, run `brew install libtiff`.
-  - On 64-bit **Windows**, no setup is required 😄. **If you have 32-bit
-    windows, the `ijtiff` package doesn’t work.** I worked really hard
-    to figure out why this is, but I couldn’t 😦.
+  - On **Windows**, no setup is required 😄.
 
 ### Installing the release version of the `ijtiff` R package
 
