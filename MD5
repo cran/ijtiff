@@ -1,6 +1,6 @@
-398720c32015593900c33527c5d06d5c *DESCRIPTION
+9c6c6853536593f70e5c8eb31b41c3f7 *DESCRIPTION
 cf446f54716881744a0a3399e61d5bc7 *NAMESPACE
-4493a6610f9ee6c2ed0ba05ddbb58b82 *NEWS.md
+f360616fadb6aba8ed9c257fa9a5ac12 *NEWS.md
 7f13a0bc88ef39558378cd5b6555ab5c *R/argument-checking.R
 bb0bd8c8d19d7abe92ceeba9eec6ad32 *R/class_constructors.R
 7867f3914887e499957799d05d34a4c7 *R/graphics.R
@@ -18,13 +18,13 @@ cbdb390b752aef6224446f41161793df *inst/CITATION
 02d7b6292d7a881b08f9cbaa4faa35be *inst/WORDLIST
 72d7e840eaf584d1643dec2c21ab9f9c *inst/doc/reading-and-writing-images.R
 969607412db279cdb86dad2d8069f744 *inst/doc/reading-and-writing-images.Rmd
-e24c87643e2b65fd15209e1c1ecfceff *inst/doc/reading-and-writing-images.html
+ab13f88fb5478a5508a4c99011364688 *inst/doc/reading-and-writing-images.html
 46750e778a5cdb4d65c347f8e43df623 *inst/doc/text-images.R
 bd49f1666c31b2d119c538f4b3e35e97 *inst/doc/text-images.Rmd
-3715dddb0f4882bac9645351e621709a *inst/doc/text-images.html
+ad619e804396e525d7a7be152ec8a8b2 *inst/doc/text-images.html
 b4556abb5a4a23c27ef1fdae961a9010 *inst/doc/the-imagej-problem.R
 aec94832852878621f845604104d83a9 *inst/doc/the-imagej-problem.Rmd
-f22576f07483b048bfc5d4c2743ea41f *inst/doc/the-imagej-problem.html
+541fa6e34cbcabb1134725e1244d2263 *inst/doc/the-imagej-problem.html
 9d79753300a5b9e1c68ba3bf2c431e2d *inst/extdata/TIFF_tags.csv
 a1cffa1c42763b5bd2329309a3b207db *inst/img/2ch_ij.tif
 8b81223983587b7a3807bff3b8904490 *inst/img/32x32x6x12-IJ-LUT.tif
