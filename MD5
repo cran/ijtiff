@@ -1,4 +1,4 @@
-fe793d88e71bfcc3ef5fda90bf17b378 *DESCRIPTION
+3615636df3dd80b50fa54fbfd09e3b09 *DESCRIPTION
 cf446f54716881744a0a3399e61d5bc7 *NAMESPACE
 b016a6404a821a6cf3ed4c3d558f223d *NEWS.md
 7f13a0bc88ef39558378cd5b6555ab5c *R/argument-checking.R
@@ -10,7 +10,7 @@ f27f27cca41e0eb3f08abc43277d1181 *R/print.R
 48ff6382c017a8060d37a82ab599adcf *R/text-io.R
 0e864147daa133f99c2c169b7891f4b8 *R/utils.R
 c4c5bb6bb570f645854e72e3e8c884b1 *R/write.R
-32ed3cd8eb7b5580f51a59c837fd30c1 *README.md
+0d7a40dd9fd062d3e23da6510e057083 *README.md
 af18523b69d0be508f03ffe9eb84110d *build/vignette.rds
 38ba0348cef0ac8408c22acb51d50d83 *cleanup
 64726fb8cb6e37288c195da116ec2ec3 *cleanup.win
@@ -20,13 +20,13 @@ cbdb390b752aef6224446f41161793df *inst/CITATION
 02d7b6292d7a881b08f9cbaa4faa35be *inst/WORDLIST
 72d7e840eaf584d1643dec2c21ab9f9c *inst/doc/reading-and-writing-images.R
 969607412db279cdb86dad2d8069f744 *inst/doc/reading-and-writing-images.Rmd
-d7af78e2ed8bd3add41099c3c56029aa *inst/doc/reading-and-writing-images.html
+b57135a7747c34d136416bdf2e390d9c *inst/doc/reading-and-writing-images.html
 46750e778a5cdb4d65c347f8e43df623 *inst/doc/text-images.R
 bd49f1666c31b2d119c538f4b3e35e97 *inst/doc/text-images.Rmd
-72a3350bf286929cfe85072adb5c6093 *inst/doc/text-images.html
+b7aa638df26af10bec3b103c22bfe8ab *inst/doc/text-images.html
 b4556abb5a4a23c27ef1fdae961a9010 *inst/doc/the-imagej-problem.R
 aec94832852878621f845604104d83a9 *inst/doc/the-imagej-problem.Rmd
-317ee0ec374692b114e6229db7ea577c *inst/doc/the-imagej-problem.html
+9d78e1132bf4aff15589b4f0512bdc37 *inst/doc/the-imagej-problem.html
 9d79753300a5b9e1c68ba3bf2c431e2d *inst/extdata/TIFF_tags.csv
 a1cffa1c42763b5bd2329309a3b207db *inst/img/2ch_ij.tif
 8b81223983587b7a3807bff3b8904490 *inst/img/32x32x6x12-IJ-LUT.tif
@@ -96,7 +96,7 @@ f7b50eefaf756f5dd10b568a52dc8803 *tests/testthat/testthat-figs/image2.tif
 16fde5ef31a17fc40a0de1276d8e18bf *tests/testthat/testthat-files/printing_of_Rlogo-banana.txt
 3524f8454ba05f9de0eb1d1240251eb4 *tools/config.R
 2c61cc4b4dbee0f949f2e2cdfb009a72 *tools/config/cleanup.R
-112d179b408ad42e040e6cc981c75b88 *tools/config/configure.R
+ecf0b1b687418c4137b1d0cd410e124f *tools/config/configure.R
 6cb07d423dcb3ae050178c4fc20b70a0 *tools/winlibs.R
 969607412db279cdb86dad2d8069f744 *vignettes/reading-and-writing-images.Rmd
 bd49f1666c31b2d119c538f4b3e35e97 *vignettes/text-images.Rmd
