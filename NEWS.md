@@ -1,3 +1,10 @@
+# `ijtiff` 2.2.6
+
+# BUG FIXES
+* Suppress unhelpful warnings during configure when `pkg-config` doesn't find info for libtiff.
+* Remove `LazyData` from `DESCRIPTION` (was causing CRAN note).
+
+
 # `ijtiff` 2.2.5
 
 ## BUG FIXES
