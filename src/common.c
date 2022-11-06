@@ -36,7 +36,7 @@ static void TIFFWarningHandler_(const char* module, const char* fmt,
              "Unknown field with tag") == NULL &&
         strstr(txtbuf,
                "Defining non-color channels as ExtraSamples.") == NULL) {
-  Rf_warning("%s: %s", module, txtbuf);
+    Rf_warning("%s: %s", module, txtbuf);
   }
 }
 
@@ -59,7 +59,7 @@ static void TIFFErrorHandler_(const char* module, const char* fmt, va_list ap) {
   Rf_error("%s: %s", module, txtbuf);
 }
 
-static void init_tiff() {
+static void init_tiff(void) {
   if (need_init) {
   	TIFFSetWarningHandler(TIFFWarningHandler_);
 	  TIFFSetErrorHandler(TIFFErrorHandler_);
