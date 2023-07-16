@@ -1,6 +1,6 @@
-e9009369248f6dd11ce0306b53a2b03f *DESCRIPTION
+b07d102792c34db11f78cecd44c6b1db *DESCRIPTION
 76ebb21b3e122881839e2aa811d49c49 *NAMESPACE
-8124e73e91bad9427481553483ab5f99 *NEWS.md
+ee6cda2442ad7cdf61f7857b8f629a02 *NEWS.md
 6f6e6406526615918ee1fd3f3b30a55f *R/argument-checking.R
 15e8cb8fbdb69b03c9aa3bf109e26034 *R/class_constructors.R
 624a1c5adf6a85e1cf6f69ca20007378 *R/graphics.R
@@ -10,7 +10,7 @@ e9009369248f6dd11ce0306b53a2b03f *DESCRIPTION
 e7b3b243d9f93178958a5e3664164b50 *R/text-io.R
 393809ae689d9294b3458b8f3ac199d2 *R/utils.R
 5fb751001a625921254ac768ba6140f3 *R/write.R
-059d38d277b2160b9fab995cf781ad4a *README.md
+a89047d9cc443c35add6cbca06df493c *README.md
 27a4e6084c39ef602db7b1badf705e93 *build/vignette.rds
 38ba0348cef0ac8408c22acb51d50d83 *cleanup
 64726fb8cb6e37288c195da116ec2ec3 *cleanup.win
@@ -20,13 +20,13 @@ eabcad63d8b0a123cfa5594db25a6074 *configure.win
 d7a14f21b9f6b68bdfff50e04e19e838 *inst/WORDLIST
 72d7e840eaf584d1643dec2c21ab9f9c *inst/doc/reading-and-writing-images.R
 969607412db279cdb86dad2d8069f744 *inst/doc/reading-and-writing-images.Rmd
-57a857790d53ca985f595583a08ec4a8 *inst/doc/reading-and-writing-images.html
+b69670c0f2f76b0255be56538c123742 *inst/doc/reading-and-writing-images.html
 46750e778a5cdb4d65c347f8e43df623 *inst/doc/text-images.R
 bd49f1666c31b2d119c538f4b3e35e97 *inst/doc/text-images.Rmd
-533b71c2fce426b0c045701a5beb6163 *inst/doc/text-images.html
+c87f86583b509ca355b9c1b758a86afd *inst/doc/text-images.html
 b4556abb5a4a23c27ef1fdae961a9010 *inst/doc/the-imagej-problem.R
 aec94832852878621f845604104d83a9 *inst/doc/the-imagej-problem.Rmd
-623a0e54f6eae4f18ca30bb1f21a5718 *inst/doc/the-imagej-problem.html
+f8855cde77d4b282c8c8915501cd36e7 *inst/doc/the-imagej-problem.html
 9d79753300a5b9e1c68ba3bf2c431e2d *inst/extdata/TIFF_tags.csv
 a1cffa1c42763b5bd2329309a3b207db *inst/img/2ch_ij.tif
 8b81223983587b7a3807bff3b8904490 *inst/img/32x32x6x12-IJ-LUT.tif

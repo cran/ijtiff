@@ -5,6 +5,11 @@
 
 [![R-CMD-check](https://github.com/ropensci/ijtiff/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci/ijtiff/actions)
 
+[![Project Status: Inactive – The project has reached a stable, usable
+state but is no longer being actively developed; support/maintenance
+will be provided as time
+allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
+
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ijtiff)](https://cran.r-project.org/package=ijtiff)
 ![RStudio CRAN
 downloads](http://cranlogs.r-pkg.org/badges/grand-total/ijtiff)
@@ -37,12 +42,10 @@ To learn about `ijtiff` and how to use it, visit the package website at
 `ijtiff` requires you to have the `libtiff` C library installed. To
 install `libtiff`:
 
-- On **Debian Linux**, try `sudo apt-get install libtiff5-dev`, or if
-  that fails, try  
-  `sudo apt-get install libtiff4-dev`.
-- On **Fedora Linux**, try `sudo yum install libtiff5-dev`, or if that
-  doesn’t work, try  
-  `sudo yum install libtiff4-dev`.
+- On **Debian Linux**, try
+  `sudo apt-get install libtiff-dev libwebp-dev libzstd-dev`.
+- On **Fedora Linux**, try
+  `sudo yum install libtiff-devel libwebp-devel libzstd-devel`.
 - On **Mac**, you need [Homebrew](https://brew.sh/). Then in the
   terminal, run `brew install libtiff`.
 - On **Windows**, no setup is required.
