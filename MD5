@@ -1,6 +1,6 @@
-b07d102792c34db11f78cecd44c6b1db *DESCRIPTION
+239768decfca6431356a9617458b81ea *DESCRIPTION
 76ebb21b3e122881839e2aa811d49c49 *NAMESPACE
-ee6cda2442ad7cdf61f7857b8f629a02 *NEWS.md
+11dd4e5b50ce3d04090b5d21a54d7b4c *NEWS.md
 6f6e6406526615918ee1fd3f3b30a55f *R/argument-checking.R
 15e8cb8fbdb69b03c9aa3bf109e26034 *R/class_constructors.R
 624a1c5adf6a85e1cf6f69ca20007378 *R/graphics.R
@@ -20,13 +20,13 @@ eabcad63d8b0a123cfa5594db25a6074 *configure.win
 d7a14f21b9f6b68bdfff50e04e19e838 *inst/WORDLIST
 72d7e840eaf584d1643dec2c21ab9f9c *inst/doc/reading-and-writing-images.R
 969607412db279cdb86dad2d8069f744 *inst/doc/reading-and-writing-images.Rmd
-b69670c0f2f76b0255be56538c123742 *inst/doc/reading-and-writing-images.html
+9231ec31977a8bb0aab5ae3e18341d26 *inst/doc/reading-and-writing-images.html
 46750e778a5cdb4d65c347f8e43df623 *inst/doc/text-images.R
 bd49f1666c31b2d119c538f4b3e35e97 *inst/doc/text-images.Rmd
-c87f86583b509ca355b9c1b758a86afd *inst/doc/text-images.html
+553abe131bc84f7d62dcc167fd2ff5d5 *inst/doc/text-images.html
 b4556abb5a4a23c27ef1fdae961a9010 *inst/doc/the-imagej-problem.R
 aec94832852878621f845604104d83a9 *inst/doc/the-imagej-problem.Rmd
-f8855cde77d4b282c8c8915501cd36e7 *inst/doc/the-imagej-problem.html
+5b93e5f53d44f16dcf589940538b9a3b *inst/doc/the-imagej-problem.html
 9d79753300a5b9e1c68ba3bf2c431e2d *inst/extdata/TIFF_tags.csv
 a1cffa1c42763b5bd2329309a3b207db *inst/img/2ch_ij.tif
 8b81223983587b7a3807bff3b8904490 *inst/img/32x32x6x12-IJ-LUT.tif
@@ -60,8 +60,7 @@ f3819ad0527a6fe8269f3cc075ec2907 *man/read_tif.Rd
 a630e99aaf4f62f9edfb79214bae5ae1 *man/text-image-io.Rd
 b3f5f88a19ccf307fc090724d201df80 *man/tif_tags_reference.Rd
 278a8b24a469f3eab501a9e58579b29d *man/write_tif.Rd
-13d0de96a0ca583b774d94fe8ad15593 *src/Makevars.ucrt
-01c6ab4c2e857bc1edb9a4ffdc83de1b *src/Makevars.win
+b8b44d186baede619769d213ce1c968f *src/Makevars.win
 6e7828f3f05c959f888319d11559dcbe *src/common.c
 6a3785005b15a726f1d445d459fdf9c3 *src/common.h
 93bf7e16c7c695a97a9ccfc85a9d3b22 *src/init.c
@@ -106,8 +105,8 @@ c1e94c239e0ea96560f74f9357924619 *tests/testthat/testthat-figs/bad_ij1.tif
 f7b50eefaf756f5dd10b568a52dc8803 *tests/testthat/testthat-figs/image2.tif
 3524f8454ba05f9de0eb1d1240251eb4 *tools/config.R
 2c61cc4b4dbee0f949f2e2cdfb009a72 *tools/config/cleanup.R
-a63d3be1eb5cee0b9b792034b0018967 *tools/config/configure.R
-b5abe672bb9cea614d921c6a10064e54 *tools/winlibs.R
+5c25cbc4f9b01a34e7d1aa8eed0e6821 *tools/config/configure.R
+7cd9a3c5e5335c6273d1a8aa440676e0 *tools/winlibs.R
 969607412db279cdb86dad2d8069f744 *vignettes/reading-and-writing-images.Rmd
 bd49f1666c31b2d119c538f4b3e35e97 *vignettes/text-images.Rmd
 aec94832852878621f845604104d83a9 *vignettes/the-imagej-problem.Rmd
