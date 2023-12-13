@@ -69,6 +69,6 @@ write_tif(img_dancing_banana, path)
 path_txt_img <- system.file("img", "Rlogo-grey.txt", package = "ijtiff")
 txt_img <- read_txt_img(path_txt_img)
 
-## ---- write-txt-img-----------------------------------------------------------
+## ----write-txt-img------------------------------------------------------------
 write_txt_img(txt_img, path = tempfile(pattern = "txtimg", fileext = ".txt"))
 
