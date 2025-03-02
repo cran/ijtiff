@@ -6,6 +6,37 @@
 
 #include <Rinternals.h>
 
+const ttag_t supported_tags[] = {
+    TIFFTAG_IMAGEWIDTH,
+    TIFFTAG_IMAGELENGTH,
+    TIFFTAG_IMAGEDEPTH,
+    TIFFTAG_BITSPERSAMPLE,
+    TIFFTAG_SAMPLESPERPIXEL,
+    TIFFTAG_SAMPLEFORMAT,
+    TIFFTAG_PLANARCONFIG,
+    TIFFTAG_ROWSPERSTRIP,
+    TIFFTAG_TILEWIDTH,
+    TIFFTAG_TILELENGTH,
+    TIFFTAG_COMPRESSION,
+    TIFFTAG_THRESHHOLDING,
+    TIFFTAG_XRESOLUTION,
+    TIFFTAG_YRESOLUTION,
+    TIFFTAG_XPOSITION,
+    TIFFTAG_YPOSITION,
+    TIFFTAG_RESOLUTIONUNIT,
+    TIFFTAG_ORIENTATION,
+    TIFFTAG_COPYRIGHT,
+    TIFFTAG_ARTIST,
+    TIFFTAG_DOCUMENTNAME,
+    TIFFTAG_DATETIME,
+    TIFFTAG_IMAGEDESCRIPTION,
+    TIFFTAG_SOFTWARE,
+    TIFFTAG_PHOTOMETRIC,
+    TIFFTAG_COLORMAP
+};
+
+const size_t n_supported_tags = sizeof(supported_tags) / sizeof(supported_tags[0]);
+
 static int need_init = 1;
 
 static char txtbuf[2048];  // text buffer
@@ -30,7 +61,6 @@ SEXP getAttr(SEXP x, const char *name) {
 static void TIFFWarningHandler_(const char* module, const char* fmt,
                                 va_list ap) {
   /* we can't pass it directly since R has no vprintf entry point */
-  // FIXME: could possible put an if statement here to suppress tag warnings
   vsnprintf(txtbuf, sizeof(txtbuf), fmt, ap);
   if (strstr(txtbuf,
              "Unknown field with tag") == NULL &&
@@ -153,10 +183,11 @@ static int TIFFCloseProc_(thandle_t usr) {
   tiff_job_t *rj = (tiff_job_t*) usr;
   if (rj->f) {
     fclose(rj->f);
+    rj->f = NULL;
   } else if (rj->alloc) {
-  	free(rj->data);
-	  rj->data = 0;
-  	rj->alloc = 0;
+    free(rj->data);
+    rj->data = NULL;
+    rj->alloc = 0;
   }
   last_tiff = 0;
   return 0;
@@ -193,6 +224,20 @@ TIFF *TIFF_Open(const char *mode, tiff_job_t *rj) {
 	         TIFFClientOpen("pkg:tiff", mode, (thandle_t) rj, TIFFReadProc_,
                           TIFFWriteProc_, TIFFSeekProc_, TIFFCloseProc_,
                           TIFFSizeProc_, TIFFMapFileProc_, TIFFUnmapFileProc_));
+}
+
+// Helper function to open a TIFF file
+TIFF* open_tiff_file(const char* filename, tiff_job_t* rj, FILE** f) {
+    *f = fopen(filename, "rb");
+    if (!*f) {
+        Rf_error("unable to open %s", filename);
+    }
+    rj->f = *f;
+    TIFF* tiff = TIFF_Open("rmc", rj); // no mmap, no chopping
+    if (!tiff) {
+        Rf_error("Unable to open TIFF");
+    }
+    return tiff;
 }
 
 void check_type_sizes(void) {

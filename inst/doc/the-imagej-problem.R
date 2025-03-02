@@ -6,7 +6,7 @@ knitr::opts_chunk$set(
 )
 knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 library(magrittr)
-par(mar=rep(0, 4))
+par(mar = rep(0, 4))
 
 ## ----2 channel path-----------------------------------------------------------
 path_2ch_ij <- system.file("img", "Rlogo-banana-red_green.tif",

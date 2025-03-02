@@ -11,7 +11,17 @@ write_tif(
   bits_per_sample = "auto",
   compression = "none",
   overwrite = FALSE,
-  msg = TRUE
+  msg = TRUE,
+  xresolution = NULL,
+  yresolution = NULL,
+  resolutionunit = NULL,
+  orientation = NULL,
+  xposition = NULL,
+  yposition = NULL,
+  copyright = NULL,
+  artist = NULL,
+  documentname = NULL,
+  datetime = NULL
 )
 
 tif_write(
@@ -20,7 +30,17 @@ tif_write(
   bits_per_sample = "auto",
   compression = "none",
   overwrite = FALSE,
-  msg = TRUE
+  msg = TRUE,
+  xresolution = NULL,
+  yresolution = NULL,
+  resolutionunit = NULL,
+  orientation = NULL,
+  xposition = NULL,
+  yposition = NULL,
+  copyright = NULL,
+  artist = NULL,
+  documentname = NULL,
+  datetime = NULL
 )
 }
 \arguments{
@@ -51,6 +71,44 @@ compression in a TIFF file if you can; I've noticed it can be buggy.}
 proceed?}
 
 \item{msg}{Print an informative message about the image being written?}
+
+\item{xresolution}{Numeric value specifying the horizontal resolution in pixels per unit.
+This is typically used with \code{resolutionunit} to define the physical dimensions of the image.}
+
+\item{yresolution}{Numeric value specifying the vertical resolution in pixels per unit.
+This is typically used with \code{resolutionunit} to define the physical dimensions of the image.}
+
+\item{resolutionunit}{Integer specifying the unit of measurement for \code{xresolution} and \code{yresolution}.
+Valid values are: 1 (no absolute unit), 2 (inch), or 3 (centimeter). Default is 2 (inch) if not specified.}
+
+\item{orientation}{Integer specifying the orientation of the image.
+Valid values are:
+\itemize{
+\item 1 = Row 0 top, column 0 left (default)
+\item 2 = Row 0 top, column 0 right
+\item 3 = Row 0 bottom, column 0 right
+\item 4 = Row 0 bottom, column 0 left
+\item 5 = Row 0 left, column 0 top
+\item 6 = Row 0 right, column 0 top
+\item 7 = Row 0 right, column 0 bottom
+\item 8 = Row 0 left, column 0 bottom
+}}
+
+\item{xposition}{Numeric value specifying the x position of the image in resolution units.
+This is typically used with \code{resolutionunit} to define the horizontal position of the image.}
+
+\item{yposition}{Numeric value specifying the y position of the image in resolution units.
+This is typically used with \code{resolutionunit} to define the vertical position of the image.}
+
+\item{copyright}{Character string specifying the copyright notice for the image.}
+
+\item{artist}{Character string specifying the name of the person who created the image.}
+
+\item{documentname}{Character string specifying the name of the document from which the image was scanned.}
+
+\item{datetime}{Date/time for the image. Can be provided as a character string in format "YYYY:MM:DD HH:MM:SS",
+a Date object, a POSIXct/POSIXlt object, or any object that can be converted to a datetime using
+lubridate::as_datetime(). If NULL (default), no datetime is set.}
 }
 \value{
 The input \code{img} (invisibly).
