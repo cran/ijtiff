@@ -14,23 +14,22 @@ path_2ch_ij <- system.file("img", "Rlogo-banana-red_green.tif",
 )
 
 ## ----red and green banana, echo=FALSE, message=FALSE, dpi=300, warning=FALSE, out.width='100%'----
-rgbanana_tif <- system.file("img", "Rlogo-banana-red_green.tif",
+rgbanana_tif <- system.file("img", "Rlogo-banana.tif",
   package = "ijtiff"
 ) %>%
   ijtiff::read_tif()
+rgbanana_tif[is.na(rgbanana_tif)] <- max(rgbanana_tif, na.rm = TRUE)
 d <- dim(rgbanana_tif)
-reds <- purrr::map(seq_len(d[4]), ~ rgbanana_tif[, , 1, .]) %>%
-  purrr::reduce(cbind)
-greens <- purrr::map(seq_len(d[4]), ~ rgbanana_tif[, , 2, .]) %>%
-  purrr::reduce(cbind)
-to_display <- array(0, dim = c(2 * nrow(reds), ncol(reds), 3, 1))
-to_display[seq_len(nrow(reds)), , 1, ] <- reds
-to_display[seq_len(nrow(reds)) + nrow(reds), , 2, ] <- greens
-ijtiff::display(to_display, axes = FALSE)
+reds <- cbind(rgbanana_tif[, , 1, 1], rgbanana_tif[, , 1, 3]) %>%
+  apply(2, \(r) rgb(r, 0, 0, maxColorValue = max(rgbanana_tif, na.rm = TRUE)))
+greens <- cbind(rgbanana_tif[, , 2, 1], rgbanana_tif[, , 2, 3]) %>%
+  apply(2, \(g) rgb(0, g, 0, maxColorValue = max(rgbanana_tif, na.rm = TRUE)))
+to_display <- as.raster(rbind(reds, greens))
+graphics::plot(to_display)
 
 ## ----original tiff import-----------------------------------------------------
 img <- tiff::readTIFF(path_2ch_ij, all = TRUE)
-str(img) # 10 images
+str(img)
 img[[1]][100:105, 50:55, 1] # print a section of the first image in the series
 
 ## ----ijtiff import------------------------------------------------------------

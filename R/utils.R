@@ -131,34 +131,6 @@ lowest_upper_bound <- function(x, possible_upper_bounds, na_rm = TRUE) {
   return(NA_real_)
 }
 
-#' Fix the resolution unit if necessary.
-#'
-#' The resolution unit is another thing that ImageJ sometimes decides to record
-#' in `ImageDescription` so needs to be allowed for.
-#'
-#' @param x An [ijtiff_img] which optionally has a `description` attribute with
-#'   the contents of `ImageDescription`.
-#'
-#' @return An [ijtiff_img].
-#'
-#' @noRd
-fix_res_unit <- function(x) {
-  desc <- attr(x, "ImageDescription")
-  curr_unit <- attr(x, "ResolutionUnit")
-  if (!is.null(desc) &&
-    startsWith(desc, "ImageJ") &&
-    stringr::str_detect(desc, "\\sunit=.+\\s") &&
-    (is.null(curr_unit) || curr_unit == "No absolute unit of measurement")) {
-    unit <- stringr::str_extract(desc, "(?<=unit=).+?(?=\\s)")
-    if (unit == "inch") {
-      attr(x, "ResolutionUnit") <- "Inch"
-    } else if (unit == "cm") {
-      attr(x, "ResolutionUnit") <- "Centimeter"
-    }
-  }
-  x
-}
-
 #' Does the object read by `read_tif_C()` have a colormap or channels specified
 #' in the weird ImageJ way?
 #'
@@ -491,27 +463,26 @@ translate_ij_description <- function(tags1) {
 prep_read <- function(path, frames, tags1, tags = FALSE) {
   frames <- prep_frames(frames)
   frames_max <- max(frames)
-  c(n_imgs, n_slices, ij_n_ch, n_ch) %<-% translate_ij_description(
-    tags1
-  )[c("n_imgs", "n_slices", "ij_n_ch", "n_ch")]
+  translated_ij_desc <- translate_ij_description(tags1)
   path <- fs::path_expand(path)
   n_dirs <- .Call("count_directories_C", path, PACKAGE = "ijtiff")
-  if (!is.na(n_slices)) {
+  if (!is.na(translated_ij_desc$n_slices)) {
     if (frames[[1]] == "all") {
-      frames <- seq_len(n_slices)
-      frames_max <- n_slices
+      frames <- seq_len(translated_ij_desc$n_slices)
+      frames_max <- translated_ij_desc$n_slices
     }
-    if (frames_max > n_slices) {
+    if (frames_max > translated_ij_desc$n_slices) {
       rlang::abort(
         stringr::str_glue(
           "You have requested frame number {frames_max} but ",
-          "there are only {n_slices} frames in total."
+          "there are only {translated_ij_desc$n_slices} frames in total."
         )
       )
     }
-    if (ij_n_ch) {
-      if (n_dirs != n_slices) {
-        if (!is.na(n_imgs) && n_dirs != n_imgs) {
+    if (translated_ij_desc$ij_n_ch) {
+      if (n_dirs != translated_ij_desc$n_slices) {
+        if (!is.na(translated_ij_desc$n_imgs) &&
+          n_dirs != translated_ij_desc$n_imgs) {
           rlang::abort(
             c(
               paste(
@@ -521,17 +492,17 @@ prep_read <- function(path, frames, tags1, tags = FALSE) {
               x = stringr::str_glue("Your TIFF file has {n_dirs} directories."),
               x = stringr::str_glue(
                 "Its ImageDescription indicates that it",
-                " holds {n_imgs} images."
+                " holds {translated_ij_desc$n_imgs} images."
               )
             )
           )
         }
         if (tags) {
-          frames <- frames * n_ch - (n_ch - 1)
+          frames <- frames * translated_ij_desc$n_ch - (translated_ij_desc$n_ch - 1)
         } else {
           frames <- purrr::map(
-            frames * n_ch,
-            ~ .x - rev((seq_len(n_ch) - 1))
+            frames * translated_ij_desc$n_ch,
+            ~ .x - rev((seq_len(translated_ij_desc$n_ch) - 1))
           ) %>%
             unlist()
         }
@@ -556,11 +527,11 @@ prep_read <- function(path, frames, tags1, tags = FALSE) {
   list(
     frames = as.integer(good_frames),
     back_map = back_map,
-    n_ch = n_ch,
+    n_ch = translated_ij_desc$n_ch,
     n_dirs = n_dirs,
-    n_slices = ifelse(is.na(n_slices), n_dirs, n_slices),
-    n_imgs = n_imgs,
-    ij_n_ch = ij_n_ch
+    n_slices = ifelse(is.na(translated_ij_desc$n_slices), n_dirs, translated_ij_desc$n_slices),
+    n_imgs = translated_ij_desc$n_imgs,
+    ij_n_ch = translated_ij_desc$ij_n_ch
   )
 }
 

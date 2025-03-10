@@ -17,6 +17,9 @@ typedef struct tiff_job {
 
 TIFF *TIFF_Open(const char *mode, tiff_job_t *rj);
 
+// Cleanup function to make sure all TIFF resources are released
+void cleanup_tiff(void);
+
 // Helper function to open a TIFF file
 TIFF* open_tiff_file(const char* filename, tiff_job_t* rj, FILE** f);
 
@@ -28,5 +31,8 @@ SEXP getAttr(SEXP x, const char *name);
 // List of tags we want to read
 extern const ttag_t supported_tags[];
 extern const size_t n_supported_tags;
+
+// Global variable to track the last opened TIFF handle for cleanup
+extern TIFF *last_tiff;
 
 #endif  // PKG_TIFF_COMMON_H__

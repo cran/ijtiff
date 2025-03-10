@@ -30,7 +30,7 @@ YResolution
 YYYY
 awaresystems
 bona
-cimg
+codecov
 coercible
 colormaps
 colour
@@ -41,6 +41,7 @@ github
 grayscale
 https
 imagej
+img
 libtiff
 linescan
 lubridate

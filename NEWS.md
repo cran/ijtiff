@@ -1,3 +1,16 @@
+# `ijtiff` 3.1.0
+
+## MINOR IMPROVEMENTS
+
+* `display()` now uses base R's `graphics` and `grDevices` so the dependency on the (large) `imager` package is removed.
+
+## BUG FIXES
+
+* Fixed memory leaks in tag handling code by ensuring proper buffer cleanup.
+* Added TIFF file validation to prevent memory leaks when handling invalid files.
+* Improved error messages for invalid TIFF files.
+* All tags now included in `print()` method.
+
 # `ijtiff` 3.0.0
 
 ## NEW FEATURES

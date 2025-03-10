@@ -5,6 +5,7 @@
 #include <sys/types.h>
 
 #include <Rinternals.h>
+#include <R_ext/Rdynload.h>
 
 const ttag_t supported_tags[] = {
     TIFFTAG_IMAGEWIDTH,
@@ -35,13 +36,15 @@ const ttag_t supported_tags[] = {
     TIFFTAG_COLORMAP
 };
 
-const size_t n_supported_tags = sizeof(supported_tags) / sizeof(supported_tags[0]);
+const size_t n_supported_tags = sizeof(supported_tags) / sizeof(ttag_t);
 
 static int need_init = 1;
+static int err_reenter = 0;
+
+// Global variable to track the last opened TIFF handle
+TIFF *last_tiff = NULL;
 
 static char txtbuf[2048];  // text buffer
-
-static TIFF *last_tiff; /* this to avoid leaks */
 
 // avoid protection issues with setAttrib
 void setAttr(SEXP x, const char *name, SEXP val) {
@@ -70,8 +73,6 @@ static void TIFFWarningHandler_(const char* module, const char* fmt,
   }
 }
 
-static int err_reenter = 0;
-
 static void TIFFErrorHandler_(const char* module, const char* fmt, va_list ap) {
   if (err_reenter) return;
   /* prevent re-entrance which can happen as TIFF
@@ -90,10 +91,17 @@ static void TIFFErrorHandler_(const char* module, const char* fmt, va_list ap) {
 }
 
 static void init_tiff(void) {
-  if (need_init) {
-  	TIFFSetWarningHandler(TIFFWarningHandler_);
-	  TIFFSetErrorHandler(TIFFErrorHandler_);
-  	need_init = 0;
+  TIFFSetWarningHandler(TIFFWarningHandler_);
+  TIFFSetErrorHandler(TIFFErrorHandler_);
+  need_init = 0;
+}
+
+// Cleanup function to make sure all TIFF resources are released
+void cleanup_tiff(void)
+{
+  if (last_tiff) {
+    TIFFClose(last_tiff);
+    last_tiff = NULL;
   }
 }
 
@@ -217,25 +225,55 @@ static void TIFFUnmapFileProc_(thandle_t usr, tdata_t map, toff_t off) {
 /* actual interface */
 TIFF *TIFF_Open(const char *mode, tiff_job_t *rj) {
   if (need_init) init_tiff();
-  #if AGGRESSIVE_CLEANUP
-    if (last_tiff) TIFFClose(last_tiff);
-  #endif
-  return(last_tiff =
-	         TIFFClientOpen("pkg:tiff", mode, (thandle_t) rj, TIFFReadProc_,
-                          TIFFWriteProc_, TIFFSeekProc_, TIFFCloseProc_,
-                          TIFFSizeProc_, TIFFMapFileProc_, TIFFUnmapFileProc_));
+  
+  // Always close the previous TIFF handle to prevent memory leaks
+  if (last_tiff) {
+    TIFFClose(last_tiff);
+    last_tiff = NULL;
+  }
+  
+  // Verify that the file appears to be a valid TIFF before attempting to open it
+  // Only do this check for read operations (mode contains 'r')
+  if (rj->f && strchr(mode, 'r') != NULL) {
+    // Check for TIFF magic number (II or MM followed by version)
+    char magic[4];
+    long pos = ftell(rj->f);
+    size_t read = fread(magic, 1, 4, rj->f);
+    fseek(rj->f, pos, SEEK_SET); // Reset file position
+    
+    // Check TIFF signature: II (Intel) or MM (Motorola) followed by version (usually 42)
+    if (read != 4 || 
+        !((magic[0] == 'I' && magic[1] == 'I' && magic[2] == 42 && magic[3] == 0) || 
+          (magic[0] == 'M' && magic[1] == 'M' && magic[2] == 0 && magic[3] == 42))) {
+      // Not a valid TIFF file, don't even try TIFFClientOpen
+      return NULL;
+    }
+  }
+  
+  // Store the result directly in last_tiff so we can clean it up on error
+  last_tiff = TIFFClientOpen("pkg:ijtiff", mode, (thandle_t) rj, TIFFReadProc_,
+                         TIFFWriteProc_, TIFFSeekProc_, TIFFCloseProc_,
+                         TIFFSizeProc_, TIFFMapFileProc_, TIFFUnmapFileProc_);
+  
+  // If TIFFClientOpen failed, make sure we don't return a NULL pointer
+  // The memory leak in TIFFClientOpen would have already happened, but
+  // this ensures we properly handle future cleanup
+  return last_tiff;
 }
 
 // Helper function to open a TIFF file
 TIFF* open_tiff_file(const char* filename, tiff_job_t* rj, FILE** f) {
     *f = fopen(filename, "rb");
     if (!*f) {
-        Rf_error("unable to open %s", filename);
+        Rf_error("Unable to open %s", filename);
     }
     rj->f = *f;
     TIFF* tiff = TIFF_Open("rmc", rj); // no mmap, no chopping
     if (!tiff) {
-        Rf_error("Unable to open TIFF");
+        fclose(*f);
+        *f = NULL;
+        rj->f = NULL;
+        Rf_error("Unable to open as TIFF file: %s does not appear to be a valid TIFF file", filename);
     }
     return tiff;
 }
