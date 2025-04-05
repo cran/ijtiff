@@ -1,3 +1,15 @@
+# `ijtiff` 3.1.3
+
+## MINOR IMPROVEMENTS
+
+* Fix `PROTECT`ion error.
+
+# `ijtiff` 3.1.2
+
+## BUG FIXES
+
+Doc fix for `write_tif()`. See [issue #23](https://github.com/ropensci/ijtiff/issues/23).
+
 # `ijtiff` 3.1.1
 
 ## BUG FIXES

@@ -1,6 +1,6 @@
-4d742afc99a80ea0dcd63d786528017f *DESCRIPTION
+a6be56d0a84ffffe7e12eff667b58441 *DESCRIPTION
 ccd24f7bb86a98de59001611012cad8b *NAMESPACE
-c5e3cad16fe928fd6d337503a1f73591 *NEWS.md
+7cdea87f3e9167aad8e21d00022be73a *NEWS.md
 5789ce05c8f5d37e4c0095b570ed8405 *R/argument-checking.R
 164be207c3d7a5cd93bf883f8a828d27 *R/class_constructors.R
 f82e960ab18adb1173c1cd19763ed6ff *R/graphics.R
@@ -12,7 +12,7 @@ efb4e70157ce3ffe9b094fa73c04dade *R/tags.R
 e7b3b243d9f93178958a5e3664164b50 *R/text-io.R
 cc721529d05606a2813d3a9442fd1780 *R/utils.R
 413fdd04c80341b7de9fe10df95243d1 *R/write.R
-7cdce54d39696a15d57d1a1f05ece65c *README.md
+e09bcba43cd500fa0d61e549d4d3f4d2 *README.md
 b53d7204bf3b982895efa80a0c929c88 *build/vignette.rds
 38ba0348cef0ac8408c22acb51d50d83 *cleanup
 64726fb8cb6e37288c195da116ec2ec3 *cleanup.win
@@ -21,16 +21,16 @@ e890112877abbbe5071b3bd3fb711d7a *configure
 095e592c8bf2f30ac50af5837fae590d *inst/WORDLIST
 628efc9a06286169adc7c92adb673aaa *inst/doc/reading-and-writing-images.R
 a81f97c7cff6fbd6c0295a6ce0b3a061 *inst/doc/reading-and-writing-images.Rmd
-9ff6f49a1d6bd750cd12227f389f8654 *inst/doc/reading-and-writing-images.html
+7524e77f635d31a108f4cb2433be1548 *inst/doc/reading-and-writing-images.html
 46750e778a5cdb4d65c347f8e43df623 *inst/doc/text-images.R
 bd49f1666c31b2d119c538f4b3e35e97 *inst/doc/text-images.Rmd
-29435b2857866b30a63c8d10b565f1ea *inst/doc/text-images.html
+f9fe5330da847175edcdb63b2b38d677 *inst/doc/text-images.html
 95d2432f2bdbf57ef4e5a6a0caa3d9e6 *inst/doc/the-imagej-problem.R
 a802305039438a6443b3eb93bc947b2c *inst/doc/the-imagej-problem.Rmd
-124055eff81f204be2267502c3f7bb98 *inst/doc/the-imagej-problem.html
+f405b22f38edafea062b12fb21bd68af *inst/doc/the-imagej-problem.html
 ababb4d16b83ee5cbc73573a193d0f1a *inst/doc/tiff-tags.R
 78b8bd70f0015bd51679e2e760d7f087 *inst/doc/tiff-tags.Rmd
-e418ab6372ffb7a1e1f661c595731813 *inst/doc/tiff-tags.html
+c37a2308c506b39bf65689936745ddd4 *inst/doc/tiff-tags.html
 9d79753300a5b9e1c68ba3bf2c431e2d *inst/extdata/TIFF_tags.csv
 f6dd90bf387676067b44b66164beac72 *inst/extdata/tiff-tag-conversions.json
 a1cffa1c42763b5bd2329309a3b207db *inst/img/2ch_ij.tif
@@ -73,7 +73,7 @@ cee8a2e75e3a39ea7e20599617fa28fc *src/Makevars.win
 c8de8e70da8a7b8d0790b35679e163ed *src/common.h
 134f6150287110ad4c87c27fce668cff *src/init.c
 80a2f07ba81e6adbfd3efc5376f46cda *src/read.c
-0745a873618d6016490bd551df8f4340 *src/tags.c
+88c2b46b87b045383408d2c6cb8cf08c *src/tags.c
 e7e9954f04f565c68028f232dab905a0 *src/tags.h
 1feb9394080a82b00630331a6be72c45 *src/utils.c
 e67581614503e3fd2e955cf70d12d1e1 *src/write.c
@@ -121,7 +121,7 @@ c1e94c239e0ea96560f74f9357924619 *tests/testthat/testthat-figs/bad_ij1.tif
 f7b50eefaf756f5dd10b568a52dc8803 *tests/testthat/testthat-figs/image2.tif
 3524f8454ba05f9de0eb1d1240251eb4 *tools/config.R
 2c61cc4b4dbee0f949f2e2cdfb009a72 *tools/config/cleanup.R
-5c25cbc4f9b01a34e7d1aa8eed0e6821 *tools/config/configure.R
+3c1447e3074245abb83e45da1dfb5dcf *tools/config/configure.R
 7cd9a3c5e5335c6273d1a8aa440676e0 *tools/winlibs.R
 a81f97c7cff6fbd6c0295a6ce0b3a061 *vignettes/reading-and-writing-images.Rmd
 bd49f1666c31b2d119c538f4b3e35e97 *vignettes/text-images.Rmd
